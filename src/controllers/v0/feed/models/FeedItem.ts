@@ -4,6 +4,9 @@ import { User } from '../../users/models/User';
 @Table
 export class FeedItem extends Model<FeedItem> {
   @Column
+  public title!: string;
+
+  @Column
   public caption!: string;
 
   @Column

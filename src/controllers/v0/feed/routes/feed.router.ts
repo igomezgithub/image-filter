@@ -2,6 +2,7 @@ import { Router, Request, Response } from 'express';
 import { FeedItem } from '../models/FeedItem';
 import { requireAuth } from '../../users/routes/auth.router';
 import * as AWS from '../../../../aws';
+import { filterImageFromURL } from '../../../../util/util';
 
 const router: Router = Router();
 
@@ -16,16 +17,43 @@ router.get('/', async (req: Request, res: Response) => {
     res.send(items);
 });
 
-//@TODO
 //Add an endpoint to GET a specific resource by Primary Key
-router.get('/:id', async(req: Request, res: Response) => {
-    const item = await FeedItem.findByPk(req.params.id)
-    if(item){
-        res.status(200).send(item)
-    }else{
-        res.status(404).send(`nothing found with id ${req.params.id}`)
+// router.get('/:id', async(req: Request, res: Response) => {
+//     const item = await FeedItem.findByPk(req.params.id)
+//     if(item){
+//         res.status(200).send(item)
+//     }else{
+//         res.status(404).send(`nothing found with id ${req.params.id}`)
+//     }
+// });
+
+// GET {{host}}/filteredimage?image_url={{URL}}
+// You can use this endpoint to filter an image by title and load from URL resource.
+router.get('/filteredimage/', 
+    requireAuth, 
+    async (req: Request, res: Response) => 
+    {
+        let url = req.query.image_url as string;
+
+        if (!url) {
+            return res.status(400)
+               .send(`The image public URL is required.`);
+        }
+
+        try {
+            const path = await filterImageFromURL(url as string);
+           
+        } catch(error) {
+            return res.status(409).send(`${error}`)
+        }
+        
+            // const imageFiltered: FeedItem = await FeedItem.findOne({ where: { title: req.params.title } });
+
+
+            // const url = AWS.getGetSignedUrl(imageFiltered.url);
+        res.status(200).send(url);
     }
-})
+);
 
 // update a specific resource
 router.patch('/:id', 
@@ -35,15 +63,16 @@ router.patch('/:id',
         res.send(500).send("not implemented")
 });
 
-
 // Get a signed url to put a new item in the bucket
 router.get('/signed-url/:fileName', 
     requireAuth, 
-    async (req: Request, res: Response) => {
-    let { fileName } = req.params;
-    const url = AWS.getPutSignedUrl(fileName);
-    res.status(201).send({url: url});
-});
+    async (req: Request, res: Response) => 
+    {
+        let { fileName } = req.params;
+        const url = AWS.getPutSignedUrl(fileName);
+        res.status(201).send({url: url});
+    }
+);
 
 // Post meta data and the filename after a file is uploaded 
 // NOTE the file name is they key name in the s3 bucket.
