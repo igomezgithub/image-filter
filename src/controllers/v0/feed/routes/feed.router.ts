@@ -2,7 +2,7 @@ import { Router, Request, Response } from 'express';
 import { FeedItem } from '../models/FeedItem';
 import { requireAuth } from '../../users/routes/auth.router';
 import * as AWS from '../../../../aws';
-import { filterImageFromURL } from '../../../../util/util';
+import { deleteLocalFiles, filterImageFromURL } from '../../../../util/util';
 
 const router: Router = Router();
 
@@ -34,6 +34,7 @@ router.get('/filteredimage/',
     async (req: Request, res: Response) => 
     {
         let url = req.query.image_url as string;
+        let path = '';
 
         if (!url) {
             return res.status(400)
@@ -41,17 +42,15 @@ router.get('/filteredimage/',
         }
 
         try {
-            const path = await filterImageFromURL(url as string);
+            path = await filterImageFromURL(url as string);
            
         } catch(error) {
             return res.status(409).send(`${error}`)
         }
-        
-            // const imageFiltered: FeedItem = await FeedItem.findOne({ where: { title: req.params.title } });
 
-
-            // const url = AWS.getGetSignedUrl(imageFiltered.url);
-        res.status(200).send(url);
+        res.status(200).sendFile(path, () => {
+            deleteLocalFiles([path]);
+        });
     }
 );
 
