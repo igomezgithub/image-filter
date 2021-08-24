@@ -1,7 +1,7 @@
 {
 	"info": {
-		"_postman_id": "90c44738-86d0-440c-ac60-dcb7b70fb9e8",
-		"name": "udacity-c2-restapi",
+		"_postman_id": "deb80218-287a-47f4-a216-1fff9d279edd",
+		"name": "integrated-testing-restapi",
 		"description": "Requests that should work!",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
 	},
@@ -15,7 +15,6 @@
 						{
 							"listen": "test",
 							"script": {
-								"id": "1ad01629-c164-41ef-9d19-0a5fd13274af",
 								"exec": [
 									"pm.test(\"Status code is 200\", function () {",
 									"    pm.response.to.have.status(200);",
@@ -37,10 +36,6 @@
 					"request": {
 						"method": "GET",
 						"header": [],
-						"body": {
-							"mode": "raw",
-							"raw": ""
-						},
 						"url": {
 							"raw": "{{host}}/api/v0/feed",
 							"host": [
@@ -62,7 +57,6 @@
 						{
 							"listen": "test",
 							"script": {
-								"id": "1ad01629-c164-41ef-9d19-0a5fd13274af",
 								"exec": [
 									"pm.test(\"Status code is 200\", function () {",
 									"    pm.response.to.have.status(200);",
@@ -84,10 +78,6 @@
 					"request": {
 						"method": "GET",
 						"header": [],
-						"body": {
-							"mode": "raw",
-							"raw": ""
-						},
 						"url": {
 							"raw": "{{host}}/api/v0/feed/:id",
 							"host": [
@@ -121,10 +111,6 @@
 							"originalRequest": {
 								"method": "GET",
 								"header": [],
-								"body": {
-									"mode": "raw",
-									"raw": ""
-								},
 								"url": {
 									"raw": "{{host}}/api/v0/feed/:id",
 									"host": [
@@ -191,7 +177,6 @@
 						{
 							"listen": "test",
 							"script": {
-								"id": "4fa0ec55-4fb1-4eda-a7a3-08af62324ede",
 								"exec": [
 									"pm.test(\"Status code is 200\", function () {",
 									"    pm.response.to.have.status(200);",
@@ -222,7 +207,7 @@
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n\t\"email\":\"hello@gmail.com\",\n\t\"password\":\"fancypass\"\n}"
+							"raw": "{\n\t\"email\":\"test@mail.com\",\n\t\"password\":\"test123\"\n}"
 						},
 						"url": {
 							"raw": "{{host}}/api/v0/users/auth",
@@ -245,7 +230,6 @@
 						{
 							"listen": "test",
 							"script": {
-								"id": "b3737edc-f79e-4823-b2c5-e84e6359e173",
 								"exec": [
 									"pm.test(\"Status code is 400\", function () {",
 									"    pm.response.to.have.status(400);",
@@ -300,7 +284,6 @@
 						{
 							"listen": "test",
 							"script": {
-								"id": "5524b249-cd4d-4e75-91c4-b2f690d53d44",
 								"exec": [
 									"pm.test(\"Status code is 200\", function () {",
 									"    pm.response.to.have.status(200);",
@@ -335,7 +318,7 @@
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n\t\"email\":\"hello@gmail.com\",\n\t\"password\":\"fancypass\"\n}"
+							"raw": "{\n\t\"email\":\"test@mail.com\",\n\t\"password\":\"test123\"\n}"
 						},
 						"url": {
 							"raw": "{{host}}/api/v0/users/auth/login",
@@ -359,7 +342,6 @@
 						{
 							"listen": "test",
 							"script": {
-								"id": "41cd51df-9472-4d8d-9177-b4f54d6a8530",
 								"exec": [
 									"pm.test(\"Status code is 400\", function () {",
 									"    pm.response.to.have.status(400);",
@@ -420,7 +402,6 @@
 						{
 							"listen": "test",
 							"script": {
-								"id": "1ad01629-c164-41ef-9d19-0a5fd13274af",
 								"exec": [
 									"pm.test(\"Status code is 401\", function () {",
 									"    pm.response.to.have.status(401);",
@@ -467,7 +448,6 @@
 						{
 							"listen": "test",
 							"script": {
-								"id": "1ad01629-c164-41ef-9d19-0a5fd13274af",
 								"exec": [
 									"pm.test(\"Status code is 400\", function () {",
 									"    pm.response.to.have.status(400);",
@@ -516,12 +496,11 @@
 					"response": []
 				},
 				{
-					"name": "/api/v0/feed authorized Copy",
+					"name": "/api/v0/feed authorized",
 					"event": [
 						{
 							"listen": "test",
 							"script": {
-								"id": "1ad01629-c164-41ef-9d19-0a5fd13274af",
 								"exec": [
 									"pm.test(\"Status code is 201\", function () {",
 									"    pm.response.to.have.status(201);",
@@ -568,6 +547,208 @@
 						"description": "Post a new item to the feed"
 					},
 					"response": []
+				},
+				{
+					"name": "/api/v0/feed/filteredimage authorized",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 201\", function () {",
+									"    pm.response.to.have.status(201);",
+									"});",
+									"",
+									"pm.test(\"The post returns a new item with an id\", function () {",
+									"    var jsonData = pm.response.json();",
+									"    pm.expect(jsonData.id).to.not.eql(null);",
+									"});",
+									"",
+									"pm.test(\"Response time is less than 200ms\", function () {",
+									"    pm.expect(pm.response.responseTime).to.be.below(200);",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "{{host}}/api/v0/feed/filteredimage/?image_url=https://www.cleverfiles.com/howto/wp-content/uploads/2018/03/minion.jpg",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"api",
+								"v0",
+								"feed",
+								"filteredimage",
+								""
+							],
+							"query": [
+								{
+									"key": "image_url",
+									"value": "https://www.cleverfiles.com/howto/wp-content/uploads/2018/03/minion.jpg"
+								}
+							]
+						},
+						"description": "Post a new item to the feed"
+					},
+					"response": []
+				},
+				{
+					"name": "/api/v0/feed/signed-url/:fileName",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 201\", function () {",
+									"    pm.response.to.have.status(201);",
+									"});",
+									"",
+									"pm.test(\"The post returns a new item with an id\", function () {",
+									"    var jsonData = pm.response.json();",
+									"    pm.expect(jsonData.id).to.not.eql(null);",
+									"});",
+									"",
+									"pm.test(\"Response time is less than 200ms\", function () {",
+									"    pm.expect(pm.response.responseTime).to.be.below(200);",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"caption\": \"Nueva imagen 2\",\n    \"url\": \"xander0.jpg\"\n}"
+						},
+						"url": {
+							"raw": "{{host}}/api/v0/feed/signed-url/xander0.jpg",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"api",
+								"v0",
+								"feed",
+								"signed-url",
+								"xander0.jpg"
+							]
+						},
+						"description": "Post a new item to the feed"
+					},
+					"response": []
+				},
+				{
+					"name": "/api/v0/feed/signed-url/:fileName",
+					"protocolProfileBehavior": {
+						"strictSSL": true,
+						"disableUrlEncoding": false
+					},
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "image/jpeg",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "file",
+							"file": {
+								"src": "/D:/Learning/0_platforms/Udacity/01.Cloud Developer/03.Full Stack Apps on AWS/Lesson 4 - Building and Deploying/udacity-c2-restapi/mock/xander1.jpg"
+							}
+						},
+						"url": {
+							"raw": "https://my-igomezpan-cloud-image-processor-bucket-dev.s3.amazonaws.com/xander1.jpg?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=ASIAVC2O7FJ4INHZUXZ6%2F20210823%2Fus-east-1%2Fs3%2Faws4_request&X-Amz-Date=20210823T172158Z&X-Amz-Expires=300&X-Amz-Security-Token=IQoJb3JpZ2luX2VjEOL%2F%2F%2F%2F%2F%2F%2F%2F%2F%2FwEaCXVzLWVhc3QtMSJIMEYCIQCWuCCutNClQo9h5ff9zPGbLK%2BSMH1%2FHZ%2ByXfhwDC%2BSUQIhAJlonHzsl%2B6CbDzjp0a48gUcpm5nYCNuRMVoVvKV4hq%2BKvoDCBoQABoMMzQ5NjY4NTg0MDU2IgzsYPrmKCEIQIvHJqkq1wOF1snblRbLowbrOuGkJ3jRbAu0AvRvnpErQWFMpYapGZt7%2B4mKGgrB%2BrBw%2F%2FTt2cNkhf1FInQcl3VpE4f%2BWnqDg4EvJNlI3v1EBzno0jg%2F6021BeLGsfitQaGnnVPb9FtlUYEh6EzzCd0Okd3IVcxj8kRQ%2BIy0HcAGqHDmFQ8ZPiFiQLb3%2Btkn61XfJC0tGGaxOGNbdxBqY3B%2F23gMxZ%2BnjA5oizFyp33r1xXoUwNz%2FojroHFxrSnZVRzq4s%2FzQN4NDcz74Wh709vUZcfT8zooxEIDA9S6EDh%2FKcnqptdpK3%2BFnDj4o7Oh5zJJ2IAz%2FlIKWg1Ho1wumvqJ5VlEUUms5fcksBb%2BqbeYO5F8MgkHQwhgyqReTO%2B1zpRXyG9kT8a7o9GP%2BFg3YcaZF5hp8HtOU69%2BaiNNcavohbzUL%2Bs1mCGai8VYWhSWlGIhJrgHqlbOBDoZNVLk4Oe2OJ474oNey9bk87uP9SxeBZqELUKfcQAE07i3ZUZ%2BbJHLjihQv8gkjLVeDo0r0PX4qmVi6q719udwiVbRcN2WiI3QGnI8Ph1PcLYSXeBiXooWAgogG1oN9WXGbXbAnL07uivE8uCQB%2Figlr5RwiUJMKuicByQVSMmYr5fHoIw9KuPiQY6pAFxyXn3SF3ad6M77Lciqhskfna49yXM0y6%2B6yqQvN0b8LZ%2FcACAwukIcv2iHrngo%2BsiExgUr0UyJld6FuZU5d%2B%2BqDtLIej2ST0BBXKXpE9b7wy%2BfO7LB%2FbLchFUKCGUo7NxsBgJUuqCuoGU686kwFVh3tFCegfU%2B06Yo9aGX6zrb6zrhOnpxe8IptPsZTb%2BHPuxzuVlpcFeBl2JDCHNUdXQcGArvw%3D%3D&X-Amz-Signature=5b918c651fdd0830650fba1ff50aef6d21f646bf1a1563bd06a1a9103016e9f9&X-Amz-SignedHeaders=host",
+							"protocol": "https",
+							"host": [
+								"my-igomezpan-cloud-image-processor-bucket-dev",
+								"s3",
+								"amazonaws",
+								"com"
+							],
+							"path": [
+								"xander1.jpg"
+							],
+							"query": [
+								{
+									"key": "X-Amz-Algorithm",
+									"value": "AWS4-HMAC-SHA256"
+								},
+								{
+									"key": "X-Amz-Credential",
+									"value": "ASIAVC2O7FJ4INHZUXZ6%2F20210823%2Fus-east-1%2Fs3%2Faws4_request"
+								},
+								{
+									"key": "X-Amz-Date",
+									"value": "20210823T172158Z"
+								},
+								{
+									"key": "X-Amz-Expires",
+									"value": "300"
+								},
+								{
+									"key": "X-Amz-Security-Token",
+									"value": "IQoJb3JpZ2luX2VjEOL%2F%2F%2F%2F%2F%2F%2F%2F%2F%2FwEaCXVzLWVhc3QtMSJIMEYCIQCWuCCutNClQo9h5ff9zPGbLK%2BSMH1%2FHZ%2ByXfhwDC%2BSUQIhAJlonHzsl%2B6CbDzjp0a48gUcpm5nYCNuRMVoVvKV4hq%2BKvoDCBoQABoMMzQ5NjY4NTg0MDU2IgzsYPrmKCEIQIvHJqkq1wOF1snblRbLowbrOuGkJ3jRbAu0AvRvnpErQWFMpYapGZt7%2B4mKGgrB%2BrBw%2F%2FTt2cNkhf1FInQcl3VpE4f%2BWnqDg4EvJNlI3v1EBzno0jg%2F6021BeLGsfitQaGnnVPb9FtlUYEh6EzzCd0Okd3IVcxj8kRQ%2BIy0HcAGqHDmFQ8ZPiFiQLb3%2Btkn61XfJC0tGGaxOGNbdxBqY3B%2F23gMxZ%2BnjA5oizFyp33r1xXoUwNz%2FojroHFxrSnZVRzq4s%2FzQN4NDcz74Wh709vUZcfT8zooxEIDA9S6EDh%2FKcnqptdpK3%2BFnDj4o7Oh5zJJ2IAz%2FlIKWg1Ho1wumvqJ5VlEUUms5fcksBb%2BqbeYO5F8MgkHQwhgyqReTO%2B1zpRXyG9kT8a7o9GP%2BFg3YcaZF5hp8HtOU69%2BaiNNcavohbzUL%2Bs1mCGai8VYWhSWlGIhJrgHqlbOBDoZNVLk4Oe2OJ474oNey9bk87uP9SxeBZqELUKfcQAE07i3ZUZ%2BbJHLjihQv8gkjLVeDo0r0PX4qmVi6q719udwiVbRcN2WiI3QGnI8Ph1PcLYSXeBiXooWAgogG1oN9WXGbXbAnL07uivE8uCQB%2Figlr5RwiUJMKuicByQVSMmYr5fHoIw9KuPiQY6pAFxyXn3SF3ad6M77Lciqhskfna49yXM0y6%2B6yqQvN0b8LZ%2FcACAwukIcv2iHrngo%2BsiExgUr0UyJld6FuZU5d%2B%2BqDtLIej2ST0BBXKXpE9b7wy%2BfO7LB%2FbLchFUKCGUo7NxsBgJUuqCuoGU686kwFVh3tFCegfU%2B06Yo9aGX6zrb6zrhOnpxe8IptPsZTb%2BHPuxzuVlpcFeBl2JDCHNUdXQcGArvw%3D%3D"
+								},
+								{
+									"key": "X-Amz-Signature",
+									"value": "5b918c651fdd0830650fba1ff50aef6d21f646bf1a1563bd06a1a9103016e9f9"
+								},
+								{
+									"key": "X-Amz-SignedHeaders",
+									"value": "host"
+								}
+							]
+						}
+					},
+					"response": []
 				}
 			],
 			"auth": {
@@ -584,7 +765,6 @@
 				{
 					"listen": "prerequest",
 					"script": {
-						"id": "65e7c108-0985-4ca7-9613-0898f005cf76",
 						"type": "text/javascript",
 						"exec": [
 							""
@@ -594,7 +774,6 @@
 				{
 					"listen": "test",
 					"script": {
-						"id": "cf28f76e-ffbb-4199-b636-1c080a86e465",
 						"type": "text/javascript",
 						"exec": [
 							""
@@ -608,7 +787,6 @@
 		{
 			"listen": "prerequest",
 			"script": {
-				"id": "bc5d9c7a-7a6b-49ed-af16-206e17e8732f",
 				"type": "text/javascript",
 				"exec": [
 					""
@@ -618,7 +796,6 @@
 		{
 			"listen": "test",
 			"script": {
-				"id": "a7cb0174-2461-42e2-979e-1b5922eea0fe",
 				"type": "text/javascript",
 				"exec": [
 					""
@@ -628,10 +805,8 @@
 	],
 	"variable": [
 		{
-			"id": "3e3ea131-5328-4f50-8fe1-516e3995917d",
 			"key": "host",
-			"value": "http://localhost:8080",
-			"type": "string"
+			"value": "http://localhost:8080"
 		}
 	]
 }

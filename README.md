@@ -1,12 +1,9 @@
-# Udagram Image Filtering Microservice
+# Image Filter Starter Code
 
-Udagram is a simple cloud application developed alongside the Udacity Cloud Engineering Nanodegree. It allows users to register and log into a web client, post photos to the feed, and process photos using an image filtering microservice.
+It allows users to register, log into, upload photos and filter an image from public URL.
 
-The project is split into three parts:
-1. [The Simple Frontend](https://github.com/udacity/cloud-developer/tree/master/course-02/exercises/udacity-c2-frontend)
-A basic Ionic client web application which consumes the RestAPI Backend. [Covered in the course]
-2. [The RestAPI Backend](https://github.com/udacity/cloud-developer/tree/master/course-02/exercises/udacity-c2-restapi), a Node-Express server which can be deployed to a cloud service. [Covered in the course]
-3. [The Image Filtering Microservice](https://github.com/udacity/cloud-developer/tree/master/course-02/project/image-filter-starter-code), the final project for the course. It is a Node-Express application which runs a simple script to process images. [Your assignment]
+The project repository can be downloaded from Github:
+1. [The Image Filtering Microservice](https://github.com/igomezgithub/image-filter.git) It is a Node-Express application which runs a simple script to filter the public images.
 
 ## Tasks
 
@@ -17,15 +14,62 @@ You'll need to create a new node server. Open a new terminal within the project 
 1. Initialize a new project: `npm i`
 2. run the development server with `npm run dev`
 
-### Create a new endpoint in the server.ts file
+### Testing in Dev environment
 
-The starter code has a task for you to complete an endpoint in `./src/server.ts` which uses query parameter to download an image from a public URL, filter the image, and return the result.
+I have included a Postman config file with the RestAPI endpoints to launch several integrated tests.
 
-We've included a few helper functions to handle some of these concepts and we're importing it for you at the top of the `./src/server.ts`  file.
+The steps to start the **Image Filter Starter Code** feature test are as follows:
 
-```typescript
-import {filterImageFromURL, deleteLocalFiles} from './util/util';
+1. Open the Postman app and import this file **integrated-testing-restapi.postman_collection.json** (you can see it in the root of the project).
+2. You must registry any user. Select this POST: *integrated-testing-restapi/Public/api/v0/user/auth valid registration*. Go to the **Body** section and write this json with your email and password. For example:
+ 
+```json
+{
+	"email":"test@mail.com",
+	"password":"test123"
+}
 ```
+3. In the **Headers** section you can add this row:
+
+```
+{
+	KEY = Content-Type,
+	VALUE = application/json
+}
+```
+
+4. Click on **Send** button and the response should be '201 Created'. 
+5. Copy the **token** string (from json response) 
+
+    Note: you can skip these 5 steps if you use the token shown at the bottom of this document.
+
+6. Select this GET: *integrated-testing-restapi/Authorized/api/v0/feed/filteredimage authorized*.
+7. Go to the **Authorization** section and select *Type = Bearer Token*. Finally, paste the token that you received in the previous request.
+8. In the **Params** section you must add a new row with the public URL:
+```
+{
+	KEY = image_url,
+	VALUE = your_image_to_apply_the_filter
+}
+```
+9. Below I show a list with several public links that can be used for testing:
+
+- https://upload.wikimedia.org/wikipedia/en/a/a9/Example.jpg
+- https://www.cleverfiles.com/howto/wp-content/uploads/2018/03/minion.jpg
+- http://www.personal.psu.edu/jyc5774/jpg.jpg
+
+10. Finally you can see the response *200 OK* and the image from URL will be displayed in the Postman response (with greyscale).
+
+### Testing in AWS environment
+
+You must use the same file **integrated-testing-restapi.postman_collection.json** from Postman to start the tests.
+
+1. Open the collection menu on **'...'** button and select the *Edit* option.
+2. In the *Variables* section you can change the CURRENT VALUE by this AWS URL **http://igomez-udacity-c2-restapi-dev.us-east-1.elasticbeanstalk.com** where the application has been deployed. 
+
+    Note: click on *Persist All* to apply all changes.
+
+3. Implement the same test plan as in the previous section **Testing in Dev environment**
 
 ### Deploying your system
 
@@ -35,14 +79,12 @@ Follow the process described in the course to `eb init` a new application and `e
 
 ### Refactor the course RESTapi
 
-If you're feeling up to it, refactor the course RESTapi to make a request to your newly provisioned image server.
+All request of the course is working successfully.
 
 ### Authentication
 
-Prevent requests without valid authentication headers.
-> !!NOTE if you choose to submit this, make sure to add the token to the postman collection and export the postman collection file to your submission so we can review!
+This is a temporal valid token: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6InRlc3RAbWFpbC5jb20iLCJwYXNzd29yZF9oYXNoIjoiJDJiJDEwJGpJaUpDVFhucUU4OG41dEJtTlZEN3U5YjRIWlNnL0g4YjE3aTJ6N0U5eS51NExCZmpaWEhlIiwiY3JlYXRlZEF0IjoiMjAyMS0wOC0yNFQxMDowNDozOS44MDRaIiwidXBkYXRlZEF0IjoiMjAyMS0wOC0yNFQxMDowNDozOS44MDRaIiwiaWF0IjoxNjI5ODQxMzkzfQ.HU8HYigrPvijucLEjU3_GhhBcd6bOhyhOvL6dY1bqzI 
 
 ### Custom Domain Name
 
-Add your own domain name and have it point to the running services (try adding a subdomain name to point to the processing server)
-> !NOTE: Domain names are not included in AWS’ free tier and will incur a cost.
+NOT IMPLEMENTED
