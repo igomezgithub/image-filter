@@ -1,6 +1,5 @@
 import fs from 'fs';
 import Jimp = require('jimp');
-import got = require('got');
 
 // filterImageFromURL
 // helper function to download, filter, and save the filtered image locally
