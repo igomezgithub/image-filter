@@ -1,0 +1,812 @@
+{
+	"info": {
+		"_postman_id": "deb80218-287a-47f4-a216-1fff9d279edd",
+		"name": "integrated-testing-restapi",
+		"description": "Requests that should work!",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Public",
+			"item": [
+				{
+					"name": "/api/v0/feed",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});",
+									"",
+									"pm.test(\"The count is equal to the number of items rx\", function () {",
+									"    var jsonData = pm.response.json();",
+									"    pm.expect(jsonData.count).to.eql(jsonData.rows.length);",
+									"});",
+									"",
+									"pm.test(\"Response time is less than 600ms\", function () {",
+									"    pm.expect(pm.response.responseTime).to.be.below(600);",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{host}}/api/v0/feed",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"api",
+								"v0",
+								"feed"
+							]
+						},
+						"description": "Get all the items in the feed"
+					},
+					"response": []
+				},
+				{
+					"name": "/api/v0/feed/:id",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});",
+									"",
+									"pm.test(\"A single item is returned\", function () {",
+									"    var jsonData = pm.response.json();",
+									"    pm.expect(jsonData.id).to.not.eql(null);",
+									"});",
+									"",
+									"pm.test(\"Response time is less than 200ms\", function () {",
+									"    pm.expect(pm.response.responseTime).to.be.below(200);",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{host}}/api/v0/feed/:id",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"api",
+								"v0",
+								"feed",
+								":id"
+							],
+							"query": [
+								{
+									"key": "id",
+									"value": "4",
+									"disabled": true
+								}
+							],
+							"variable": [
+								{
+									"key": "id",
+									"value": "3"
+								}
+							]
+						},
+						"description": "Request a specific feed item detail"
+					},
+					"response": [
+						{
+							"name": "/api/v0/feed/:id",
+							"originalRequest": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{host}}/api/v0/feed/:id",
+									"host": [
+										"{{host}}"
+									],
+									"path": [
+										"api",
+										"v0",
+										"feed",
+										":id"
+									],
+									"query": [
+										{
+											"key": "id",
+											"value": "4",
+											"disabled": true
+										}
+									],
+									"variable": [
+										{
+											"key": "id",
+											"value": "3"
+										}
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "X-Powered-By",
+									"value": "Express"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Content-Length",
+									"value": "133"
+								},
+								{
+									"key": "ETag",
+									"value": "W/\"85-gic7UchUXbyxmSqNsq7nx4+Eaas\""
+								},
+								{
+									"key": "Date",
+									"value": "Tue, 26 Mar 2019 15:07:32 GMT"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"id\": 3,\n    \"caption\": \"hello0.5278862272947393\",\n    \"url\": null,\n    \"createdAt\": \"2019-03-26T14:16:58.442Z\",\n    \"updatedAt\": \"2019-03-26T14:16:58.443Z\"\n}"
+						}
+					]
+				},
+				{
+					"name": "/api/v0/user/auth valid registration",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});",
+									"",
+									"pm.test(\"A single item is returned\", function () {",
+									"    var jsonData = pm.response.json();",
+									"    pm.expect(jsonData.id).to.not.eql(null);",
+									"});",
+									"",
+									"pm.test(\"Response time is less than 200ms\", function () {",
+									"    pm.expect(pm.response.responseTime).to.be.below(200);",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"type": "text",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"email\":\"test@mail.com\",\n\t\"password\":\"test123\"\n}"
+						},
+						"url": {
+							"raw": "{{host}}/api/v0/users/auth",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"api",
+								"v0",
+								"users",
+								"auth"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "/api/v0/user/auth invalid registration",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 400\", function () {",
+									"    pm.response.to.have.status(400);",
+									"});",
+									"",
+									"pm.test(\"auth is false and a message is included in the error body\", function () {",
+									"    var jsonData = pm.response.json();",
+									"    pm.expect(jsonData.id).to.not.eql(null);",
+									"    pm.expect(jsonData.message).to.not.eql(null)",
+									"});",
+									"",
+									"pm.test(\"Response time is less than 200ms\", function () {",
+									"    pm.expect(pm.response.responseTime).to.be.below(200);",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"password\": \"fancypass\"\n}"
+						},
+						"url": {
+							"raw": "{{host}}/api/v0/users/auth",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"api",
+								"v0",
+								"users",
+								"auth"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "/api/v0/user/auth/login valid",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});",
+									"",
+									"pm.test(\"body includes an email and token\", function () {",
+									"    var jsonData = pm.response.json();",
+									"    pm.expect(jsonData.auth).to.eql(true);",
+									"    pm.expect(jsonData.user).to.not.eql(null);",
+									"    pm.expect(jsonData.token).to.not.eql(null)",
+									"    ",
+									"    pm.environment.set(\"token\", jsonData.token);",
+									"});",
+									"",
+									"pm.test(\"Response time is less than 500ms\", function () {",
+									"    pm.expect(pm.response.responseTime).to.be.below(500);",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"email\":\"test@mail.com\",\n\t\"password\":\"test123\"\n}"
+						},
+						"url": {
+							"raw": "{{host}}/api/v0/users/auth/login",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"api",
+								"v0",
+								"users",
+								"auth",
+								"login"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "/api/v0/user/auth/login invalid",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 400\", function () {",
+									"    pm.response.to.have.status(400);",
+									"});",
+									"",
+									"pm.test(\"auth is false and a message is included in the error body\", function () {",
+									"    var jsonData = pm.response.json();",
+									"    pm.expect(jsonData.id).to.not.eql(null);",
+									"    pm.expect(jsonData.message).to.not.eql(null)",
+									"});",
+									"",
+									"pm.test(\"Response time is less than 200ms\", function () {",
+									"    pm.expect(pm.response.responseTime).to.be.below(200);",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{}"
+						},
+						"url": {
+							"raw": "{{host}}/api/v0/users/auth/login",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"api",
+								"v0",
+								"users",
+								"auth",
+								"login"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Unauthorized",
+			"item": [
+				{
+					"name": "/api/v0/feed unauthorized",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 401\", function () {",
+									"    pm.response.to.have.status(401);",
+									"});",
+									"",
+									"pm.test(\"Response time is less than 200ms\", function () {",
+									"    pm.expect(pm.response.responseTime).to.be.below(200);",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "{{host}}/api/v0/feed",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"api",
+								"v0",
+								"feed"
+							]
+						},
+						"description": "Post a new item to the feed"
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Authorized",
+			"item": [
+				{
+					"name": "/api/v0/feed invalid",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 400\", function () {",
+									"    pm.response.to.have.status(400);",
+									"});",
+									"",
+									"pm.test(\"body includes a message\", function () {",
+									"    var jsonData = pm.response.json();",
+									"    pm.expect(jsonData.message).to.not.eql(null);",
+									"});",
+									"",
+									"pm.test(\"Response time is less than 500ms\", function () {",
+									"    pm.expect(pm.response.responseTime).to.be.below(500);",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{}"
+						},
+						"url": {
+							"raw": "{{host}}/api/v0/feed",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"api",
+								"v0",
+								"feed"
+							]
+						},
+						"description": "Post a new item to the feed"
+					},
+					"response": []
+				},
+				{
+					"name": "/api/v0/feed authorized",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 201\", function () {",
+									"    pm.response.to.have.status(201);",
+									"});",
+									"",
+									"pm.test(\"The post returns a new item with an id\", function () {",
+									"    var jsonData = pm.response.json();",
+									"    pm.expect(jsonData.id).to.not.eql(null);",
+									"});",
+									"",
+									"pm.test(\"Response time is less than 200ms\", function () {",
+									"    pm.expect(pm.response.responseTime).to.be.below(200);",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"caption\": \"Hello\",\n    \"url\": \"test.jpg\"\n}"
+						},
+						"url": {
+							"raw": "{{host}}/api/v0/feed",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"api",
+								"v0",
+								"feed"
+							]
+						},
+						"description": "Post a new item to the feed"
+					},
+					"response": []
+				},
+				{
+					"name": "/api/v0/feed/filteredimage authorized",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 201\", function () {",
+									"    pm.response.to.have.status(201);",
+									"});",
+									"",
+									"pm.test(\"The post returns a new item with an id\", function () {",
+									"    var jsonData = pm.response.json();",
+									"    pm.expect(jsonData.id).to.not.eql(null);",
+									"});",
+									"",
+									"pm.test(\"Response time is less than 200ms\", function () {",
+									"    pm.expect(pm.response.responseTime).to.be.below(200);",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "{{host}}/api/v0/feed/filteredimage/?image_url=https://www.cleverfiles.com/howto/wp-content/uploads/2018/03/minion.jpg",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"api",
+								"v0",
+								"feed",
+								"filteredimage",
+								""
+							],
+							"query": [
+								{
+									"key": "image_url",
+									"value": "https://www.cleverfiles.com/howto/wp-content/uploads/2018/03/minion.jpg"
+								}
+							]
+						},
+						"description": "Post a new item to the feed"
+					},
+					"response": []
+				},
+				{
+					"name": "/api/v0/feed/signed-url/:fileName",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 201\", function () {",
+									"    pm.response.to.have.status(201);",
+									"});",
+									"",
+									"pm.test(\"The post returns a new item with an id\", function () {",
+									"    var jsonData = pm.response.json();",
+									"    pm.expect(jsonData.id).to.not.eql(null);",
+									"});",
+									"",
+									"pm.test(\"Response time is less than 200ms\", function () {",
+									"    pm.expect(pm.response.responseTime).to.be.below(200);",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"caption\": \"Nueva imagen 2\",\n    \"url\": \"xander0.jpg\"\n}"
+						},
+						"url": {
+							"raw": "{{host}}/api/v0/feed/signed-url/xander0.jpg",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"api",
+								"v0",
+								"feed",
+								"signed-url",
+								"xander0.jpg"
+							]
+						},
+						"description": "Post a new item to the feed"
+					},
+					"response": []
+				},
+				{
+					"name": "/api/v0/feed/signed-url/:fileName",
+					"protocolProfileBehavior": {
+						"strictSSL": true,
+						"disableUrlEncoding": false
+					},
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "image/jpeg",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "file",
+							"file": {
+								"src": "/D:/Learning/0_platforms/Udacity/01.Cloud Developer/03.Full Stack Apps on AWS/Lesson 4 - Building and Deploying/udacity-c2-restapi/mock/xander1.jpg"
+							}
+						},
+						"url": {
+							"raw": "https://my-igomezpan-cloud-image-processor-bucket-dev.s3.amazonaws.com/xander1.jpg?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=ASIAVC2O7FJ4INHZUXZ6%2F20210823%2Fus-east-1%2Fs3%2Faws4_request&X-Amz-Date=20210823T172158Z&X-Amz-Expires=300&X-Amz-Security-Token=IQoJb3JpZ2luX2VjEOL%2F%2F%2F%2F%2F%2F%2F%2F%2F%2FwEaCXVzLWVhc3QtMSJIMEYCIQCWuCCutNClQo9h5ff9zPGbLK%2BSMH1%2FHZ%2ByXfhwDC%2BSUQIhAJlonHzsl%2B6CbDzjp0a48gUcpm5nYCNuRMVoVvKV4hq%2BKvoDCBoQABoMMzQ5NjY4NTg0MDU2IgzsYPrmKCEIQIvHJqkq1wOF1snblRbLowbrOuGkJ3jRbAu0AvRvnpErQWFMpYapGZt7%2B4mKGgrB%2BrBw%2F%2FTt2cNkhf1FInQcl3VpE4f%2BWnqDg4EvJNlI3v1EBzno0jg%2F6021BeLGsfitQaGnnVPb9FtlUYEh6EzzCd0Okd3IVcxj8kRQ%2BIy0HcAGqHDmFQ8ZPiFiQLb3%2Btkn61XfJC0tGGaxOGNbdxBqY3B%2F23gMxZ%2BnjA5oizFyp33r1xXoUwNz%2FojroHFxrSnZVRzq4s%2FzQN4NDcz74Wh709vUZcfT8zooxEIDA9S6EDh%2FKcnqptdpK3%2BFnDj4o7Oh5zJJ2IAz%2FlIKWg1Ho1wumvqJ5VlEUUms5fcksBb%2BqbeYO5F8MgkHQwhgyqReTO%2B1zpRXyG9kT8a7o9GP%2BFg3YcaZF5hp8HtOU69%2BaiNNcavohbzUL%2Bs1mCGai8VYWhSWlGIhJrgHqlbOBDoZNVLk4Oe2OJ474oNey9bk87uP9SxeBZqELUKfcQAE07i3ZUZ%2BbJHLjihQv8gkjLVeDo0r0PX4qmVi6q719udwiVbRcN2WiI3QGnI8Ph1PcLYSXeBiXooWAgogG1oN9WXGbXbAnL07uivE8uCQB%2Figlr5RwiUJMKuicByQVSMmYr5fHoIw9KuPiQY6pAFxyXn3SF3ad6M77Lciqhskfna49yXM0y6%2B6yqQvN0b8LZ%2FcACAwukIcv2iHrngo%2BsiExgUr0UyJld6FuZU5d%2B%2BqDtLIej2ST0BBXKXpE9b7wy%2BfO7LB%2FbLchFUKCGUo7NxsBgJUuqCuoGU686kwFVh3tFCegfU%2B06Yo9aGX6zrb6zrhOnpxe8IptPsZTb%2BHPuxzuVlpcFeBl2JDCHNUdXQcGArvw%3D%3D&X-Amz-Signature=5b918c651fdd0830650fba1ff50aef6d21f646bf1a1563bd06a1a9103016e9f9&X-Amz-SignedHeaders=host",
+							"protocol": "https",
+							"host": [
+								"my-igomezpan-cloud-image-processor-bucket-dev",
+								"s3",
+								"amazonaws",
+								"com"
+							],
+							"path": [
+								"xander1.jpg"
+							],
+							"query": [
+								{
+									"key": "X-Amz-Algorithm",
+									"value": "AWS4-HMAC-SHA256"
+								},
+								{
+									"key": "X-Amz-Credential",
+									"value": "ASIAVC2O7FJ4INHZUXZ6%2F20210823%2Fus-east-1%2Fs3%2Faws4_request"
+								},
+								{
+									"key": "X-Amz-Date",
+									"value": "20210823T172158Z"
+								},
+								{
+									"key": "X-Amz-Expires",
+									"value": "300"
+								},
+								{
+									"key": "X-Amz-Security-Token",
+									"value": "IQoJb3JpZ2luX2VjEOL%2F%2F%2F%2F%2F%2F%2F%2F%2F%2FwEaCXVzLWVhc3QtMSJIMEYCIQCWuCCutNClQo9h5ff9zPGbLK%2BSMH1%2FHZ%2ByXfhwDC%2BSUQIhAJlonHzsl%2B6CbDzjp0a48gUcpm5nYCNuRMVoVvKV4hq%2BKvoDCBoQABoMMzQ5NjY4NTg0MDU2IgzsYPrmKCEIQIvHJqkq1wOF1snblRbLowbrOuGkJ3jRbAu0AvRvnpErQWFMpYapGZt7%2B4mKGgrB%2BrBw%2F%2FTt2cNkhf1FInQcl3VpE4f%2BWnqDg4EvJNlI3v1EBzno0jg%2F6021BeLGsfitQaGnnVPb9FtlUYEh6EzzCd0Okd3IVcxj8kRQ%2BIy0HcAGqHDmFQ8ZPiFiQLb3%2Btkn61XfJC0tGGaxOGNbdxBqY3B%2F23gMxZ%2BnjA5oizFyp33r1xXoUwNz%2FojroHFxrSnZVRzq4s%2FzQN4NDcz74Wh709vUZcfT8zooxEIDA9S6EDh%2FKcnqptdpK3%2BFnDj4o7Oh5zJJ2IAz%2FlIKWg1Ho1wumvqJ5VlEUUms5fcksBb%2BqbeYO5F8MgkHQwhgyqReTO%2B1zpRXyG9kT8a7o9GP%2BFg3YcaZF5hp8HtOU69%2BaiNNcavohbzUL%2Bs1mCGai8VYWhSWlGIhJrgHqlbOBDoZNVLk4Oe2OJ474oNey9bk87uP9SxeBZqELUKfcQAE07i3ZUZ%2BbJHLjihQv8gkjLVeDo0r0PX4qmVi6q719udwiVbRcN2WiI3QGnI8Ph1PcLYSXeBiXooWAgogG1oN9WXGbXbAnL07uivE8uCQB%2Figlr5RwiUJMKuicByQVSMmYr5fHoIw9KuPiQY6pAFxyXn3SF3ad6M77Lciqhskfna49yXM0y6%2B6yqQvN0b8LZ%2FcACAwukIcv2iHrngo%2BsiExgUr0UyJld6FuZU5d%2B%2BqDtLIej2ST0BBXKXpE9b7wy%2BfO7LB%2FbLchFUKCGUo7NxsBgJUuqCuoGU686kwFVh3tFCegfU%2B06Yo9aGX6zrb6zrhOnpxe8IptPsZTb%2BHPuxzuVlpcFeBl2JDCHNUdXQcGArvw%3D%3D"
+								},
+								{
+									"key": "X-Amz-Signature",
+									"value": "5b918c651fdd0830650fba1ff50aef6d21f646bf1a1563bd06a1a9103016e9f9"
+								},
+								{
+									"key": "X-Amz-SignedHeaders",
+									"value": "host"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"auth": {
+				"type": "bearer",
+				"bearer": [
+					{
+						"key": "token",
+						"value": "{{token}}",
+						"type": "string"
+					}
+				]
+			},
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							""
+						]
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							""
+						]
+					}
+				}
+			]
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"key": "host",
+			"value": "http://localhost:8080"
+		}
+	]
+}
