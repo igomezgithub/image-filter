@@ -5,6 +5,10 @@ It allows users to register, log into, upload photos and filter an image from pu
 The project repository can be downloaded from Github:
 1. [The Image Filtering Microservice](https://github.com/igomezgithub/image-filter.git) It is a Node-Express application which runs a simple script to filter the public images.
 
+## UDACITY Revision
+
+Project reviewers can read this doc **project_description.pdf** (you can see it in the root of the project).
+
 ## Tasks
 
 ### Setup Node Environment
