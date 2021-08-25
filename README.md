@@ -5,10 +5,6 @@ It allows users to register, log into, upload photos and filter an image from pu
 The project repository can be downloaded from Github:
 1. [The Image Filtering Microservice](https://github.com/igomezgithub/image-filter.git) It is a Node-Express application which runs a simple script to filter the public images.
 
-## UDACITY Revision
-
-Project reviewers can read this doc **project_description.pdf** (you can see it in the root of the project).
-
 ## Tasks
 
 ### Setup Node Environment
@@ -69,7 +65,7 @@ The steps to start the **Image Filter Starter Code** feature test are as follows
 You must use the same file **integrated-testing-restapi.postman_collection.json** from Postman to start the tests.
 
 1. Open the collection menu on **'...'** button and select the *Edit* option.
-2. In the *Variables* section you can change the CURRENT VALUE by this AWS URL **http://igomez-udacity-c2-restapi-dev.us-east-1.elasticbeanstalk.com** where the application has been deployed. 
+2. In the *Variables* section you can change the CURRENT VALUE by this AWS URL **override-with-instance-elastic-beanstalk** where the application has been deployed. 
 
     Note: click on *Persist All* to apply all changes.
 
@@ -84,10 +80,6 @@ Follow the process described in the course to `eb init` a new application and `e
 ### Refactor the course RESTapi
 
 All request of the course is working successfully.
-
-### Authentication
-
-This is a temporal valid token: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6InRlc3RAbWFpbC5jb20iLCJwYXNzd29yZF9oYXNoIjoiJDJiJDEwJGpJaUpDVFhucUU4OG41dEJtTlZEN3U5YjRIWlNnL0g4YjE3aTJ6N0U5eS51NExCZmpaWEhlIiwiY3JlYXRlZEF0IjoiMjAyMS0wOC0yNFQxMDowNDozOS44MDRaIiwidXBkYXRlZEF0IjoiMjAyMS0wOC0yNFQxMDowNDozOS44MDRaIiwiaWF0IjoxNjI5ODQxMzkzfQ.HU8HYigrPvijucLEjU3_GhhBcd6bOhyhOvL6dY1bqzI 
 
 ### Custom Domain Name
 
